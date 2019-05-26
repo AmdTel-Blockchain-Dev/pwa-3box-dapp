@@ -3,3 +3,8 @@ node_modules/
 test/integration/screenshots-current/
 _site/
 .DS_Store
+package-lock.json
+server/
+test/
+.travis.yml
+gulpfile.js

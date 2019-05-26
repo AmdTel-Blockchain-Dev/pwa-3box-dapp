@@ -15,6 +15,18 @@ import { PageViewElement } from './page-view-element.js';
 import { SharedStyles } from './shared-styles.js';
 
 class MyView1 extends PageViewElement {
+
+  static get properties() {
+    return {
+      account: String
+    }
+  }
+
+  constructor() {
+    super();
+
+    this.account='no-account'
+  }
   static get styles() {
     return [
       SharedStyles
@@ -25,18 +37,28 @@ class MyView1 extends PageViewElement {
     return html`
       <section>
         <h2>Static page</h2>
-        <p>This is a text-only page.</p>
-        <p>It doesn't do anything other than display some static text.</p>
-      </section>
-      <section>
-        <h2>Welcome</h2>
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam ac nisi orci. Maecenas sollicitudin diam in diam efficitur cursus. Morbi sollicitudin in justo tincidunt placerat. Integer tincidunt elementum nisi, eu ornare dolor lacinia eget. Fusce pulvinar massa eget odio placerat, commodo molestie ipsum tempus. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Suspendisse porttitor id purus eu cursus. Suspendisse arcu nulla, mattis vel hendrerit et, malesuada a elit. Nam at diam ornare, aliquet est sed, malesuada metus. Cras nec enim vel nibh tincidunt euismod ut et enim. Etiam pharetra eros in sodales iaculis. Duis sagittis urna et cursus mollis. Cras tempor rutrum est. Praesent sollicitudin ligula at laoreet placerat. Praesent tortor dui, semper in sapien non, pharetra luctus turpis.</p>
-      </section>
-      <section>
-        <p>Vestibulum at est ex. Aenean id ligula id nibh dictum laoreet. Etiam non semper erat. Pellentesque eu justo rhoncus diam vulputate facilisis. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam feugiat metus ex, vel fringilla massa tincidunt sit amet. Nunc facilisis bibendum tristique. Mauris commodo, dolor vitae dapibus fermentum, odio nibh viverra lorem, eu cursus diam turpis et sapien. Nunc suscipit tortor a ligula tincidunt, id hendrerit tellus sollicitudin.</p>
+        <p>Your account ${this.account}</p>
       </section>
     `;
   }
+
+  firstUpdated() {
+    if (typeof web3 !== 'undefined') {
+      //Use Mist/MetaMask's provider
+      this.web3js = new Web3(web3.currentProvider);
+    } else {
+      console.log('No web3! You will need to install MetaMask!')
+      // fallback - use your fallback strategy (local node / hosted node + in-dapp id mgmt / fail)
+      this.web3js = new Web3(new Web3.providers.HttpProvider("http://localhost:8545"));
+    }
+    // this.loadBlockchainData();
+  }
+
+  // async loadBlockchainData() {
+  //   const web3 = new Web3(Web3.givenProvider || "http://localhost:8545")
+  //   const accounts = await web3.eth.getAccounts()
+  //   this.account = accounts[0]
+  // }
 }
 
 window.customElements.define('my-view1', MyView1);
