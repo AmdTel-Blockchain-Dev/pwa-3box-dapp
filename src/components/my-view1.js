@@ -37,7 +37,9 @@ class MyView1 extends PageViewElement {
     return html`
       <section>
         <h2>Static page</h2>
-        <p>Your Etherum Address ${this.account}</p>
+        <p>Your Ethereum Address ${this.account}</p>
+        <button>Login Ethereum</button>
+        <button>Login 3box</button>
       </section>
     `;
   }
@@ -46,7 +48,7 @@ class MyView1 extends PageViewElement {
     if (typeof window.ethereum !== 'undefined' || typeof window.web3 !== 'undefined') {
       //Use Mist/MetaMask's provider
       this.ethProvider = window['ethereum'] || window.web3.currentProvider;
-      if (this.ethProvider.selectedAddress!=='undefined') {
+      if (typeof this.ethProvider.selectedAddress !== 'undefined') {
         this.account = this.ethProvider.selectedAddress
       } else {
         this.account = 'You need to log in...'
@@ -54,14 +56,13 @@ class MyView1 extends PageViewElement {
     } else {
       console.log('No web3! You will need to install MetaMask!')
     }
-    // this.loadBlockchainData();
   }
 
-  // async loadBlockchainData() {
-  //   const web3 = new Web3(Web3.givenProvider || "http://localhost:8545")
-  //   const accounts = await web3.eth.getAccounts()
-  //   this.account = accounts[0]
-  // }
+  _enableEthereum() {
+    const web3 = new Web3(Web3.givenProvider || "http://localhost:8545")
+    const accounts = await web3.eth.getAccounts()
+    this.account = accounts[0]
+  }
 }
 
 window.customElements.define('my-view1', MyView1);
