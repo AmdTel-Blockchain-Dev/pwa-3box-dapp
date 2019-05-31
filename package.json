@@ -16,7 +16,8 @@
     "redux": "^4.0.0",
     "redux-thunk": "^2.3.0",
     "reselect": "^4.0.0",
-    "web3": "^1.0.0-beta.48"
+    "web3": "^1.0.0-beta.48",
+    "3box": "^1.8.4"
   },
   "devDependencies": {
     "polymer-cli": "^1.9.7",
