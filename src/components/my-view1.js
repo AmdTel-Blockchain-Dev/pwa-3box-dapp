@@ -38,7 +38,7 @@ class MyView1 extends PageViewElement {
       <section>
         <h2>Static page</h2>
         <p>Your Ethereum Address ${this.account}</p>
-        <button>Login Ethereum</button>
+        <button @click="${this._enableEthereum}">Login Ethereum</button>
         <button>Login 3box</button>
       </section>
     `;
