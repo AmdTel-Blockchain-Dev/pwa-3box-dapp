@@ -58,14 +58,14 @@ class MyView1 extends PageViewElement {
     }
   }
 
-  _enableEthereum() {
-    window.ethereum.enable()
-    .then(function (accounts) {
-      this.account =  accounts[0];
-    })
-    .catch(function (reason) {
-      console.log(reason)
-    })
+  async _enableEthereum() {
+    try {
+      const accounts = await window.ethereum.enable();
+      this.account = accounts[0];
+      
+    } catch (error) {
+      console.log(error)
+    }
   }
 }
 
