@@ -47,7 +47,9 @@ class MyView1 extends PageViewElement {
       //Use Mist/MetaMask's provider
       this.ethProvider = window['ethereum'] || window.web3.currentProvider;
       if (this.ethProvider.selectedAddress!=='undefined') {
-        this
+        this.account = this.ethProvider.selectedAddress
+      } else {
+        this.account = 'You need to log in...'
       };
     } else {
       console.log('No web3! You will need to install MetaMask!')
