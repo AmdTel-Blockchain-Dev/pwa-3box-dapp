@@ -43,7 +43,7 @@ class MyView1 extends PageViewElement {
   }
 
   firstUpdated() {
-    if (typeof window.web3 !== 'undefined') {
+    if (typeof window.ethereum !== 'undefined' || typeof window.web3 !== 'undefined') {
       //Use Mist/MetaMask's provider
       this.web3js = new window.Web3(window.web3.currentProvider);
       this.account = this.web3js.currentProvider.selectedAddress;
