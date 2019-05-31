@@ -59,9 +59,13 @@ class MyView1 extends PageViewElement {
   }
 
   _enableEthereum() {
-    const web3 = new Web3(Web3.givenProvider || "http://localhost:8545")
-    const accounts = await web3.eth.getAccounts()
-    this.account = accounts[0]
+    window.ethereum.enable()
+    .then(function (accounts) {
+      this.account =  accounts[0];
+    })
+    .catch(function (reason) {
+      console.log(reason)
+    })
   }
 }
 
