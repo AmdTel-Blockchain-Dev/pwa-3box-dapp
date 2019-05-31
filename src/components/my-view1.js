@@ -37,7 +37,7 @@ class MyView1 extends PageViewElement {
     return html`
       <section>
         <h2>Static page</h2>
-        <p>Your account ${this.account}</p>
+        <p>Your Etherum Address ${this.account}</p>
       </section>
     `;
   }
