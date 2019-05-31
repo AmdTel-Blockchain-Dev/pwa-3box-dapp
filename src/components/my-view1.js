@@ -43,7 +43,7 @@ class MyView1 extends PageViewElement {
   }
 
   firstUpdated() {
-    if (typeof web3 !== 'undefined') {
+    if (typeof window.web3 !== 'undefined') {
       //Use Mist/MetaMask's provider
       this.web3js = new Web3(web3.currentProvider);
     } else {
