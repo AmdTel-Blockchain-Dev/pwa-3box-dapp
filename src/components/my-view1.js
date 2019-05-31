@@ -45,11 +45,12 @@ class MyView1 extends PageViewElement {
   firstUpdated() {
     if (typeof window.web3 !== 'undefined') {
       //Use Mist/MetaMask's provider
-      this.web3js = new Web3(web3.currentProvider);
+      this.web3js = new window.Web3(window.web3.currentProvider);
+      this.account = this.web3js.currentProvider.selectedAddress;
     } else {
       console.log('No web3! You will need to install MetaMask!')
       // fallback - use your fallback strategy (local node / hosted node + in-dapp id mgmt / fail)
-      this.web3js = new Web3(new Web3.providers.HttpProvider("http://localhost:8545"));
+      this.web3js = new window.Web3(new window.Web3.providers.HttpProvider("http://localhost:8545"));
     }
     // this.loadBlockchainData();
   }
