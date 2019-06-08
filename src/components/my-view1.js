@@ -26,7 +26,7 @@ class MyView1 extends PageViewElement {
   constructor() {
     super();
 
-    this.account='no-account'
+    this.accounts[0]='no-account'
   }
   static get styles() {
     return [
