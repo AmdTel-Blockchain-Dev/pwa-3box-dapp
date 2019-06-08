@@ -18,7 +18,8 @@ class MyView1 extends PageViewElement {
 
   static get properties() {
     return {
-      account: String
+      accounts: { type: String },
+      account: { type: Object }
     }
   }
 
@@ -36,12 +37,12 @@ class MyView1 extends PageViewElement {
   render() {
     return html`
       <section>
-        <h2>Static page</h2>
+        <h2>Login and Profile page</h2>
         <p>Your Ethereum Address ${this.account}</p>
-        ${this.account == 'You need to log in...'?
+        ${this.accounts == 'You need to log in...'?
       html`<button @click="${this._enableEthereum}">Login Ethereum</button>
         `
-      :html`<button>Login 3box</button>`}
+      :html`<button @click="${this._enable3box}">Login 3box</button>`}
         
       </section>
     `;
@@ -63,12 +64,18 @@ class MyView1 extends PageViewElement {
 
   async _enableEthereum() {
     try {
-      const accounts = await window.ethereum.enable();
-      this.account = accounts[0];
-      
+      this.accounts = await window.ethereum.enable();      
     } catch (error) {
       console.log(error)
     }
+  }
+  async _enable3box() {
+    try {
+      this.account = await window.Box.getProfile(accounts[0])
+    } catch (error) {
+      console.log(error)
+    }
+    
   }
 }
 
