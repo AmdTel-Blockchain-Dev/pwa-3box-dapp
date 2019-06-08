@@ -18,8 +18,10 @@ class MyView1 extends PageViewElement {
 
   static get properties() {
     return {
-      accounts: { type: String },
-      account: { type: Object }
+      Accounts: { type: Array },
+      ethAccount: { type: String },
+      threeAccount: { type: Object }
+
     }
   }
 
@@ -38,8 +40,8 @@ class MyView1 extends PageViewElement {
     return html`
       <section>
         <h2>Login and Profile page</h2>
-        <p>Your Ethereum Address ${this.account}</p>
-        ${this.accounts == 'You need to log in...'?
+        <p>Your Ethereum Address ${this.ethAccount}</p>
+        ${this.ethAccount == 'You need to log in...'?
       html`<button @click="${this._enableEthereum}">Login Ethereum</button>
         `
       :html`<button @click="${this._enable3box}">Login 3box</button>`}
@@ -53,9 +55,9 @@ class MyView1 extends PageViewElement {
       //Use Mist/MetaMask's provider
       this.ethProvider = window['ethereum'] || window.web3.currentProvider;
       if (typeof this.ethProvider.selectedAddress !== 'undefined') {
-        this.account = this.ethProvider.selectedAddress
+        this.ethAccount = this.ethProvider.selectedAddress
       } else {
-        this.account = 'You need to log in...'
+        this.ethAccount = 'You need to log in...'
       };
     } else {
       console.log('No web3! You will need to install MetaMask!')
@@ -64,14 +66,15 @@ class MyView1 extends PageViewElement {
 
   async _enableEthereum() {
     try {
-      this.accounts = await window.ethereum.enable();      
+      this.accounts = await window.ethereum.enable();
+      this.ethAccount = this.accounts[0]
     } catch (error) {
       console.log(error)
     }
   }
   async _enable3box() {
     try {
-      this.account = await window.Box.getProfile(accounts[0])
+      this.threeAccount = await window.Box.getProfile(this.ethAccount)
     } catch (error) {
       console.log(error)
     }
