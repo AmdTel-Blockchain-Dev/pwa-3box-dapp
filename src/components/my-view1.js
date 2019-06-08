@@ -18,7 +18,7 @@ class MyView1 extends PageViewElement {
 
   static get properties() {
     return {
-      accounts: { type: Array },
+      accounts: { type: String },
       account: { type: Object }
     }
   }
@@ -26,7 +26,7 @@ class MyView1 extends PageViewElement {
   constructor() {
     super();
 
-    this.accounts[0]='no-account'
+    this.account='no-account'
   }
   static get styles() {
     return [
@@ -38,8 +38,8 @@ class MyView1 extends PageViewElement {
     return html`
       <section>
         <h2>Login and Profile page</h2>
-        <p>Your Ethereum Address ${this.accounts[0]}</p>
-        ${this.accounts[0] == 'You need to log in...'?
+        <p>Your Ethereum Address ${this.account}</p>
+        ${this.accounts == 'You need to log in...'?
       html`<button @click="${this._enableEthereum}">Login Ethereum</button>
         `
       :html`<button @click="${this._enable3box}">Login 3box</button>`}
@@ -53,9 +53,9 @@ class MyView1 extends PageViewElement {
       //Use Mist/MetaMask's provider
       this.ethProvider = window['ethereum'] || window.web3.currentProvider;
       if (typeof this.ethProvider.selectedAddress !== 'undefined') {
-        this.accounts[0] = this.ethProvider.selectedAddress
+        this.account = this.ethProvider.selectedAddress
       } else {
-        this.accounts[0] = 'You need to log in...'
+        this.account = 'You need to log in...'
       };
     } else {
       console.log('No web3! You will need to install MetaMask!')
